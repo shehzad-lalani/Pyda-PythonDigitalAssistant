@@ -1,11 +1,15 @@
-#Importing WxPython,Wikipedia,Wolframalpha Modules
+#Importing WxPython,Wikipedia,Wolframalpha,Espeak Modules
 import wx
 import wikipedia
 import wolframalpha
+from espeak import espeak
 
 # Class to make GUI for Digital Assistant
 # Input a Value
 # Get desired search from Wikipedia,Wolframalpha
+# Espeak To Make Application Talk
+espeak.synth("Welcome to PyDa")
+
 class PyDaFrame(wx.Frame):
     def __init__(self):
         wx.Frame.__init__(self, None,
@@ -37,6 +41,7 @@ class PyDaFrame(wx.Frame):
             answer = next(result.results).text
 
             print(answer)
+            espeak.synth("The answer is:"+answer)
 
         except:
             #wikipedia
@@ -44,7 +49,8 @@ class PyDaFrame(wx.Frame):
             #Split the first two strings for search like who is,what does keywords etc.
             input = input.split(" ")
             input = " ".join(input[2:])
-            
+            espeak.synth("Searched For"+input)
+
             print(wikipedia.summary(input))
 
 
