@@ -41,28 +41,29 @@ class PyDaFrame(wx.Frame):
                 self.txt.SetValue(r.recognize_google(audio))
             except sr.UnknownValueError:
                 print("Google Speech Recognition doesnot understand audio")
-            except:
+            except sr.RequestError as e:
                 print("Couldnot request results from Google Speech Recognition service; {0}".format(e))
-        try:
-            #wolframalpha
-            app_id = "P26XPU-EG6443ATGU"
-            client = wolframalpha.Client(app_id)
+        else:
+            try:
+                #wolframalpha
+                app_id = "P26XPU-EG6443ATGU"
+                client = wolframalpha.Client(app_id)
 
-            result = client.query(input)
-            answer = next(result.results).text
+                result = client.query(input)
+                answer = next(result.results).text
 
-            print(answer)
-            espeak.synth("The answer is:"+answer)
+                print(answer)
+                espeak.synth("The answer is:"+answer)
 
-        except:
-            #wikipedia
+            except:
+                #wikipedia
 
-            #Split the first two strings for search like who is,what does keywords etc.
-            input = input.split(" ")
-            input = " ".join(input[2:])
-            espeak.synth("Searched For"+input)
+                #Split the first two strings for search like who is,what does keywords etc.
+                input = input.split(" ")
+                input = " ".join(input[2:])
+                espeak.synth("Searched For"+input)
 
-            print(wikipedia.summary(input))
+                print(wikipedia.summary(input))
 
 
 if __name__ == "__main__":
