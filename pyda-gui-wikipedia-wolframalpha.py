@@ -1,7 +1,8 @@
-#Importing WxPython,Wikipedia,Wolframalpha,Espeak Modules
+#Importing WxPython,Wikipedia,Wolframalpha,Espeak,Speech Recognition Modules
 import wx
 import wikipedia
 import wolframalpha
+import speech_recognition as sr
 from espeak import espeak
 
 # Class to make GUI for Digital Assistant
@@ -32,6 +33,16 @@ class PyDaFrame(wx.Frame):
     def OnEnter(self, event):
         input = self.txt.GetValue()
         input = input.lower()
+        if input == ''
+            r = sr.Recognizer()
+            with sr.Microphone() as source:
+                audio = r.listen(source)
+            try:
+                self.txt.SetValue(r.recognize_google(audio))
+            except sr.UnknownValueError:
+                print("Google Speech Recognition doesnot understand audio")
+            except:
+                print("Couldnot request results from Google Speech Recognition service; {0}".format(e))
         try:
             #wolframalpha
             app_id = "P26XPU-EG6443ATGU"
